@@ -119,7 +119,9 @@ public class PegasusClient extends DB {
     }
   }
 
-  private Status multiGet(String table, String key, Set<String> fields, Map<String, ByteIterator> result) {
+  private Status multiGet(
+      String table, String key, Set<String> fields,
+      Map<String, ByteIterator> result) {
     try {
       List<Pair<byte[], byte[]>> values = new LinkedList<>();
       boolean res = pegasusClient().multiGet(table, key.getBytes(), sortKeys, values);
