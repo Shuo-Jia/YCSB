@@ -72,8 +72,8 @@ public class PegasusClient extends DB {
   @Override
   public void init() throws DBException {
     try {
-
-      if ((operatorMod = getProperties().getProperty(MOD_PROPERTY)).equals("multi")) {
+      operatorMod = getProperties().getProperty(MOD_PROPERTY);
+      if (operatorMod !=null && operatorMod.equals("multi")) {
         String[] sortKeysArray = SORT_KEYS.split(",");
         for (String sortKey : sortKeysArray) {
           sortKeys.add(sortKey.getBytes());
@@ -98,9 +98,6 @@ public class PegasusClient extends DB {
     if (operatorMod == null || operatorMod.equals("single")) {
       return singleGet(table, key, fields, result);
     } else if (operatorMod.equals("multi")) {
-      return multiGet(table, key, fields, result);
-    } else if (operatorMod.equals("mix")) {
-      singleGet(table, key, fields, result);
       return multiGet(table, key, fields, result);
     }
     return singleGet(table, key, fields, result);
@@ -152,24 +149,19 @@ public class PegasusClient extends DB {
       return singleSet(table, key, values);
     } else if (operatorMod.equals("multi")) {
       return multiSet(table, key, values);
-    } else if (operatorMod.equals("mix")) {
-      singleSet(table, key, values);
-      return multiSet(table, key, values);
     }
     return singleSet(table, key, values);
-
   }
 
   @Override
   public Status insert(
       String table, String key, Map<String, ByteIterator> values) {
-    try {
-      pegasusClient().set(table, key.getBytes(), null, toJson(values));
-      return Status.OK;
-    } catch (Exception e) {
-      logger.error("Error inserting value into table[" + table + "] with key: " + key, e);
-      return Status.ERROR;
+    if (operatorMod == null || operatorMod.equals("single")) {
+      return singleSet(table, key, values);
+    } else if (operatorMod.equals("multi")) {
+      return multiSet(table, key, values);
     }
+    return singleSet(table, key, values);
   }
 
   private Status singleSet(String table, String key, Map<String, ByteIterator> values) {

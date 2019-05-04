@@ -113,9 +113,10 @@ LICENSE file.
     <!-- our internals -->
     <module>core</module>
     <module>binding-parent</module>
-    <module>distribution</module>
+    <!--pegasus module-->
+    <module>pegasus</module>
     <!-- all the datastore bindings, lex sorted please -->
-    <module>accumulo1.6</module>
+    <!--<module>accumulo1.6</module>
     <module>accumulo1.7</module>
     <module>accumulo1.8</module>
     <module>aerospike</module>
@@ -127,6 +128,7 @@ LICENSE file.
     <module>cloudspanner</module>
     <module>couchbase</module>
     <module>couchbase2</module>
+    <module>distribution</module>
     <module>dynamodb</module>
     <module>elasticsearch</module>
     <module>elasticsearch5</module>
@@ -144,7 +146,7 @@ LICENSE file.
     <module>infinispan</module>
     <module>jdbc</module>
     <module>kudu</module>
-    <!--<module>mapkeeper</module>-->
+    <module>mapkeeper</module>
     <module>maprdb</module>
     <module>maprjsondb</module>
     <module>memcached</module>
@@ -160,7 +162,7 @@ LICENSE file.
     <module>solr</module>
     <module>solr6</module>
     <module>tarantool</module>
-    <!--<module>voldemort</module>-->
+    <module>voldemort</module>-->
   </modules>
 
   <build>
